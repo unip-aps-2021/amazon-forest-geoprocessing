@@ -15,4 +15,5 @@ int main()
     printf("Esse programa tem como objetivo processar as imagens geradas pelos satélites da floresta ");
     
     printf("BBB");
+    printf("Parte do maico");
 }
