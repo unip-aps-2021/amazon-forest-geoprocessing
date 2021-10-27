@@ -18,3 +18,11 @@ int main()
     printf("BBB");
     printf("Parte do maico");
 }
+
+void teDaUmSacode()
+{
+    int a = 1;
+    int b = 2;
+
+    print("Vo te dá um sacode %d Vezes", a+b);
+}
