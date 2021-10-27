@@ -19,6 +19,7 @@ int main()
     printf("Parte do maico");
 }
 
+
 void curl() {
     CURL* req = curl_easy_init();
     CURLcode res;
@@ -34,4 +35,12 @@ void curl() {
         }
     }
     curl_easy_cleanup(req);
+}
+
+void teDaUmSacode()
+{
+    int a = 1;
+    int b = 2;
+
+    print("Vo te dá um sacode %d Vezes", a+b);
 }
