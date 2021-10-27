@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <curl.h>
 
 /*
 Tela de introdução explicando o projeto
