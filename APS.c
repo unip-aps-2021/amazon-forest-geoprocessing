@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /* ORGANIZAÇÃO / SUGESTÕES
 
@@ -15,12 +16,16 @@ Sair
 
 */
 
+clock_t* StartTimer();
+clock_t StopTimer();
+void Stop();
+
 int main()
 {
     int escolha = 0;
     int subescolha = 0;
 
-    system("cls");
+//     system("cls");
     printf("############## Sistema de controle do Geoprocessamento da Floresta Amazonica ##############\n\n");
     printf("Este programa tem como objetivo utilizar as imagens geradas pelos satelites da floresta \nAmazonica ja catalogadas e ordena-las. Para isso sao utilizados tres metodos de ordenacao, \nonde cada um tem sua singularidade. Tambem e possivel comparar o desempenho dos tres \npara melhor analise.\n\n\n");
 
@@ -38,10 +43,18 @@ int main()
                 {
                         // Seria legal se o usuário pudesse escolher entre ordenar de forma crescente ou decrescente em cada sort e cada sort mostrar uma coisa única (tem q pensar no quê)
                         case 1:
+                                clock_t* temporizador1 = StartTimer();
+
+                                Stop(1050); // Está interrompendo o programa por 1 segundo e 50 milissegundos
+
+                                clock_t tempoTotal = StopTimer(temporizador1);
+
+                                printf("Tempo total = %d segundos e %d milissegundos.\n", tempoTotal / CLOCKS_PER_SEC, tempoTotal % 1000);
                                 // QuickSort();
                         break;
                         case 2:
                                 // HeapSort();
+                                Stop();
                         break;
                         case 3:
                                 // CombSort();
@@ -66,7 +79,35 @@ int main()
                 exit(0);
         break;
     }
-
     return 0;
 }
 
+// Usado para pausar a execução do programa por um determinado tempo em milissegundos (passado como parâmetro)
+void Stop(int duracao)
+{
+        int msec = 0;
+        clock_t before = clock();
+
+        do
+        {
+                clock_t difference = clock() - before;
+                msec = difference * 1000 / CLOCKS_PER_SEC;
+        } while (msec < duracao);
+}
+
+// Usado para iniciar um temporizador. Retorna um número do tipo clock_t* que deve ser armazenado para o uso da função StopTimer().
+clock_t* StartTimer()
+{
+        clock_t* tempo = malloc(sizeof(clock_t));
+        *tempo = clock();
+        return tempo;
+}
+
+// Usado para finalizar a contagem de um temporizador. Retorna um número do tipo clock_t que pode ser usado para calcular o tempo passado em segundos e milissegundos.
+clock_t StopTimer(clock_t* timer)
+{
+        clock_t total = clock() - *timer;
+        return total;
+        free(timer);
+        // Para obter os segundos usados, usa-se 'total / CLOCKS_PER_SEC'   ___  Para obter os milisseundos, usa-se 'total%1000'
+}
